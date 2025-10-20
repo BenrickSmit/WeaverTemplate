@@ -1,0 +1,734 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 23,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "msvc-base",
+      "hidden": true,
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl"
+      }
+    },
+    {
+      "name": "default-release",
+      "displayName": "Default Release",
+      "description": "Default Release build",
+      "binaryDir": "${sourceDir}/build_Release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "default-debug",
+      "displayName": "Default Debug",
+      "description": "Default Debug build",
+      "binaryDir": "${sourceDir}/build_Debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "default-profile",
+      "displayName": "Default Profile",
+      "description": "Default Profile build",
+      "binaryDir": "${sourceDir}/build_Profile",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Profile"
+      }
+    },
+    {
+      "name": "clang-cl-release",
+      "displayName": "Clang-cl Release",
+      "description": "Release build using Clang-cl on Windows",
+      "inherits": "msvc-base",
+      "binaryDir": "${sourceDir}/build_ClangCL_Release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "clang-cl",
+        "CMAKE_CXX_COMPILER": "clang-cl"
+      }
+    },
+    {
+      "name": "clang-cl-debug",
+      "displayName": "Clang-cl Debug",
+      "description": "Debug build using Clang-cl on Windows",
+      "inherits": "msvc-base",
+      "binaryDir": "${sourceDir}/build_ClangCL_Debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "clang-cl",
+        "CMAKE_CXX_COMPILER": "clang-cl"
+      }
+    },
+    {
+      "name": "clang-cl-profile",
+      "displayName": "Clang-cl Profile",
+      "description": "Profile build using Clang-cl on Windows",
+      "inherits": "msvc-base",
+      "binaryDir": "${sourceDir}/build_ClangCL_Profile",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Profile",
+        "CMAKE_C_COMPILER": "clang-cl",
+        "CMAKE_CXX_COMPILER": "clang-cl"
+      }
+    },
+    {
+      "name": "ninja-release",
+      "displayName": "Ninja Release",
+      "description": "Release build using Ninja",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build_Ninja_Release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "ninja-debug",
+      "displayName": "Ninja Debug",
+      "description": "Debug build using Ninja",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build_Ninja_Debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "ninja-profile",
+      "displayName": "Ninja Profile",
+      "description": "Profile build using Ninja",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build_Ninja_Profile",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Profile"
+      }
+    },
+    {
+      "name": "unix-release",
+      "displayName": "Unix Release",
+      "description": "Release build using Unix Makefiles",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build_Unix_Release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "unix-debug",
+      "displayName": "Unix Debug",
+      "description": "Debug build using Unix Makefiles",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build_Unix_Debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "unix-profile",
+      "displayName": "Unix Profile",
+      "description": "Profile build using Unix Makefiles",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build_Unix_Profile",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Profile"
+      }
+    },
+    {
+      "name": "mingw-release",
+      "displayName": "MinGW Release",
+      "description": "Release build using MinGW Makefiles",
+      "generator": "MinGW Makefiles",
+      "binaryDir": "${sourceDir}/build_MinGW_Release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "mingw-debug",
+      "displayName": "MinGW Debug",
+      "description": "Debug build using MinGW Makefiles",
+      "generator": "MinGW Makefiles",
+      "binaryDir": "${sourceDir}/build_MinGW_Debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "mingw-profile",
+      "displayName": "MinGW Profile",
+      "description": "Profile build using MinGW Makefiles",
+      "generator": "MinGW Makefiles",
+      "binaryDir": "${sourceDir}/build_MinGW_Profile",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Profile",
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "mingw-ninja-release",
+      "displayName": "MinGW Ninja Release",
+      "description": "Release build using Ninja with MinGW",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build_MinGW_Ninja_Release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "mingw-ninja-debug",
+      "displayName": "MinGW Ninja Debug",
+      "description": "Debug build using Ninja with MinGW",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build_MinGW_Ninja_Debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "mingw-ninja-profile",
+      "displayName": "MinGW Ninja Profile",
+      "description": "Profile build using Ninja with MinGW",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build_MinGW_Ninja_Profile",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Profile",
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "clang-unix-release",
+      "displayName": "Clang Unix Release",
+      "description": "Release build using Clang on Unix-like systems with Ninja",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build_Clang_Unix_Release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    },
+    {
+      "name": "clang-unix-debug",
+      "displayName": "Clang Unix Debug",
+      "description": "Debug build using Clang on Unix-like systems with Ninja",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build_Clang_Unix_Debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    },
+    {
+      "name": "clang-unix-profile",
+      "displayName": "Clang Unix Profile",
+      "description": "Profile build using Clang on Unix-like systems with Ninja",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build_Clang_Unix_Profile",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Profile",
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    },
+    {
+      "name": "gcc-unix-release",
+      "displayName": "GCC Unix Release",
+      "description": "Release build using GCC on Unix-like systems with Ninja",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build_GCC_Unix_Release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "gcc-unix-debug",
+      "displayName": "GCC Unix Debug",
+      "description": "Debug build using GCC on Unix-like systems with Ninja",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build_GCC_Unix_Debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "gcc-unix-profile",
+      "displayName": "GCC Unix Profile",
+      "description": "Profile build using GCC on Unix-like systems with Ninja",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build_GCC_Unix_Profile",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Profile",
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "default-release",
+      "displayName": "Default Release Build",
+      "configurePreset": "default-release",
+      "configuration": "Release",
+      "jobs": 8
+    },
+    {
+      "name": "default-debug",
+      "displayName": "Default Debug Build",
+      "configurePreset": "default-debug",
+      "configuration": "Debug",
+      "jobs": 8
+    },
+    {
+      "name": "default-profile",
+      "displayName": "Default Profile Build",
+      "configurePreset": "default-profile",
+      "configuration": "Profile",
+      "jobs": 8
+    },
+    {
+      "name": "msvc-release",
+      "displayName": "MSVC Release Build",
+      "configurePreset": "default-release",
+      "configuration": "Release",
+      "jobs": 8
+    },
+    {
+      "name": "msvc-debug",
+      "displayName": "MSVC Debug Build",
+      "configurePreset": "default-debug",
+      "configuration": "Debug",
+      "jobs": 8
+    },
+    {
+      "name": "msvc-profile",
+      "displayName": "MSVC Profile Build",
+      "configurePreset": "default-profile",
+      "configuration": "Profile",
+      "jobs": 8
+    },
+    {
+      "name": "clang-cl-release",
+      "displayName": "Clang-cl Release Build",
+      "configurePreset": "clang-cl-release",
+      "configuration": "Release",
+      "jobs": 8
+    },
+    {
+      "name": "clang-cl-debug",
+      "displayName": "Clang-cl Debug Build",
+      "configurePreset": "clang-cl-debug",
+      "configuration": "Debug",
+      "jobs": 8
+    },
+    {
+      "name": "clang-cl-profile",
+      "displayName": "Clang-cl Profile Build",
+      "configurePreset": "clang-cl-profile",
+      "configuration": "Profile",
+      "jobs": 8
+    },
+    {
+      "name": "ninja-release",
+      "displayName": "Ninja Release Build",
+      "configurePreset": "ninja-release",
+      "configuration": "Release",
+      "jobs": 8
+    },
+    {
+      "name": "ninja-debug",
+      "displayName": "Ninja Debug Build",
+      "configurePreset": "ninja-debug",
+      "configuration": "Debug",
+      "jobs": 8
+    },
+    {
+      "name": "ninja-profile",
+      "displayName": "Ninja Profile Build",
+      "configurePreset": "ninja-profile",
+      "configuration": "Profile",
+      "jobs": 8
+    },
+    {
+      "name": "unix-release",
+      "displayName": "Unix Release Build",
+      "configurePreset": "unix-release",
+      "configuration": "Release",
+      "jobs": 8
+    },
+    {
+      "name": "unix-debug",
+      "displayName": "Unix Debug Build",
+      "configurePreset": "unix-debug",
+      "configuration": "Debug",
+      "jobs": 8
+    },
+    {
+      "name": "unix-profile",
+      "displayName": "Unix Profile Build",
+      "configurePreset": "unix-profile",
+      "configuration": "Profile",
+      "jobs": 8
+    },
+    {
+      "name": "gcc-unix-release",
+      "displayName": "GCC Unix Release Build",
+      "configurePreset": "gcc-unix-release",
+      "configuration": "Release",
+      "jobs": 8
+    },
+    {
+      "name": "gcc-unix-debug",
+      "displayName": "GCC Unix Debug Build",
+      "configurePreset": "gcc-unix-debug",
+      "configuration": "Debug",
+      "jobs": 8
+    },
+    {
+      "name": "gcc-unix-profile",
+      "displayName": "GCC Unix Profile Build",
+      "configurePreset": "gcc-unix-profile",
+      "configuration": "Profile",
+      "jobs": 8
+    },
+    {
+      "name": "clang-unix-release",
+      "displayName": "Clang Unix Release Build",
+      "configurePreset": "clang-unix-release",
+      "configuration": "Release",
+      "jobs": 8
+    },
+    {
+      "name": "clang-unix-debug",
+      "displayName": "Clang Unix Debug Build",
+      "configurePreset": "clang-unix-debug",
+      "configuration": "Debug",
+      "jobs": 8
+    },
+    {
+      "name": "clang-unix-profile",
+      "displayName": "Clang Unix Profile Build",
+      "configurePreset": "clang-unix-profile",
+      "configuration": "Profile",
+      "jobs": 8
+    },
+    {
+      "name": "mingw-release",
+      "displayName": "MinGW Release Build",
+      "configurePreset": "mingw-release",
+      "configuration": "Release",
+      "jobs": 8
+    },
+    {
+      "name": "mingw-debug",
+      "displayName": "MinGW Debug Build",
+      "configurePreset": "mingw-debug",
+      "configuration": "Debug",
+      "jobs": 8
+    },
+    {
+      "name": "mingw-profile",
+      "displayName": "MinGW Profile Build",
+      "configurePreset": "mingw-profile",
+      "configuration": "Profile",
+      "jobs": 8
+    },
+    {
+      "name": "mingw-ninja-release",
+      "displayName": "MinGW Ninja Release Build",
+      "configurePreset": "mingw-ninja-release",
+      "configuration": "Release",
+      "jobs": 8
+    },
+    {
+      "name": "mingw-ninja-debug",
+      "displayName": "MinGW Ninja Debug Build",
+      "configurePreset": "mingw-ninja-debug",
+      "configuration": "Debug",
+      "jobs": 8
+    },
+    {
+      "name": "mingw-ninja-profile",
+      "displayName": "MinGW Ninja Profile Build",
+      "configurePreset": "mingw-ninja-profile",
+      "configuration": "Profile",
+      "jobs": 8
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "default-test",
+      "displayName": "Default Test Run",
+      "configurePreset": "default-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "msvc-test",
+      "displayName": "MSVC Test Run",
+      "configurePreset": "default-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "clang-cl-test",
+      "displayName": "Clang-cl Test Run",
+      "configurePreset": "clang-cl-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "mingw-test",
+      "displayName": "MinGW Test Run",
+      "configurePreset": "mingw-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "mingw-ninja-test",
+      "displayName": "MinGW Ninja Test Run",
+      "configurePreset": "mingw-ninja-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "clang-unix-test",
+      "displayName": "Clang Unix Test Run",
+      "configurePreset": "clang-unix-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "gcc-unix-test",
+      "displayName": "GCC Unix Test Run",
+      "configurePreset": "gcc-unix-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ],
+  "packagePresets": [
+    {
+      "name": "default-package",
+      "displayName": "Default Package",
+      "configurePreset": "default-release",
+      "generators": [
+        "NSIS"
+      ]
+    },
+    {
+      "name": "unix-package",
+      "displayName": "Unix Package",
+      "configurePreset": "unix-release",
+      "generators": [
+        "NSIS"
+      ]
+    },
+    {
+      "name": "msvc-package",
+      "displayName": "MSVC Package",
+      "configurePreset": "default-release",
+      "generators": [
+        "NSIS"
+      ]
+    },
+    {
+      "name": "clang-cl-package",
+      "displayName": "Clang-cl Package",
+      "configurePreset": "clang-cl-release",
+      "generators": [
+        "NSIS"
+      ]
+    },
+    {
+      "name": "mingw-package",
+      "displayName": "MinGW Package",
+      "configurePreset": "mingw-release",
+      "generators": [
+        "NSIS"
+      ]
+    },
+    {
+      "name": "clang-unix-package",
+      "displayName": "Clang Unix Package",
+      "configurePreset": "clang-unix-release",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "gcc-unix-package",
+      "displayName": "GCC Unix Package",
+      "configurePreset": "gcc-unix-release",
+      "generators": [
+        "TGZ"
+      ]
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "full-workflow",
+      "displayName": "Full Project Workflow (Configure, Build, Test, Package)",
+      "description": "Configures, builds, tests, and packages the project in Release mode.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "default-release"
+        },
+        {
+          "type": "build",
+          "name": "default-release"
+        },
+        {
+          "type": "test",
+          "name": "default-test"
+        },
+        {
+          "type": "package",
+          "name": "default-package"
+        }
+      ]
+    },
+    {
+      "name": "msvc-workflow",
+      "displayName": "MSVC Workflow",
+      "description": "Configures, builds, tests, and packages the project using MSVC.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "default-release"
+        },
+        {
+          "type": "build",
+          "name": "msvc-release"
+        },
+        {
+          "type": "test",
+          "name": "msvc-test"
+        },
+        {
+          "type": "package",
+          "name": "msvc-package"
+        }
+      ]
+    },
+    {
+      "name": "clang-cl-workflow",
+      "displayName": "Clang-cl Workflow",
+      "description": "Configures, builds, tests, and packages the project using Clang-cl.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "clang-cl-release"
+        },
+        {
+          "type": "build",
+          "name": "clang-cl-release"
+        },
+        {
+          "type": "test",
+          "name": "clang-cl-test"
+        },
+        {
+          "type": "package",
+          "name": "clang-cl-package"
+        }
+      ]
+    },
+    {
+      "name": "mingw-workflow",
+      "displayName": "MinGW Workflow",
+      "description": "Configures, builds, tests, and packages the project using MinGW (GCC).",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "mingw-release"
+        },
+        {
+          "type": "build",
+          "name": "mingw-release"
+        },
+        {
+          "type": "test",
+          "name": "mingw-test"
+        },
+        {
+          "type": "package",
+          "name": "mingw-package"
+        }
+      ]
+    },
+    {
+      "name": "clang-unix-workflow",
+      "displayName": "Clang Unix Workflow",
+      "description": "Configures, builds, tests, and packages the project using Clang on Unix.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "clang-unix-release"
+        },
+        {
+          "type": "build",
+          "name": "clang-unix-release"
+        },
+        {
+          "type": "test",
+          "name": "clang-unix-test"
+        },
+        {
+          "type": "package",
+          "name": "clang-unix-package"
+        }
+      ]
+    },
+    {
+      "name": "gcc-unix-workflow",
+      "displayName": "GCC Unix Workflow",
+      "description": "Configures, builds, tests, and packages the project using GCC on Unix.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "gcc-unix-release"
+        },
+        {
+          "type": "build",
+          "name": "gcc-unix-release"
+        },
+        {
+          "type": "test",
+          "name": "gcc-unix-test"
+        },
+        {
+          "type": "package",
+          "name": "gcc-unix-package"
+        }
+      ]
+    }
+  ]
+}

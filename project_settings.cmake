@@ -1,0 +1,5 @@
+set(PROJECT_NAME "WeaverGuiTemplateProjectSetup")
+set(PROJECT_VERSION "1.0.0")
+set(PROJECT_CPP_VERSION 17)
+set(PROJECT_COMPANY_NAME "My Default Company")
+set(PROJECT_COMPANY_NAMESPACE "com.mydefaultcompany")

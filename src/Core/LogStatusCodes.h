@@ -1,0 +1,30 @@
+/**
+ * @file LogStatusCodes.h
+ * @author B.G. Smit
+ * @brief Defines macros for logging with gRPC-style status codes.
+ *
+ * This file provides a set of macros that integrate with the logging system
+ * to output messages with predefined status codes (e.g., CANCELLED, UNKNOWN, INTERNAL).
+ * These macros enhance the clarity and consistency of error and status reporting.
+ * @copyright Copyright (c) 2025
+ */
+#pragma once
+
+#include "Log.h"
+
+#define WEAVER_LOG_CANCELLED WEAVER_LOG_ERROR << "[CANCELLED] "
+#define WEAVER_LOG_UNKNOWN WEAVER_LOG_ERROR << "[UNKNOWN] "
+#define WEAVER_LOG_INVALID_ARGUMENT WEAVER_LOG_ERROR << "[INVALID_ARGUMENT] "
+#define WEAVER_LOG_DEADLINE_EXCEEDED WEAVER_LOG_WARN << "[DEADLINE_EXCEEDED] "
+#define WEAVER_LOG_NOT_FOUND WEAVER_LOG_ERROR << "[NOT_FOUND] "
+#define WEAVER_LOG_ALREADY_EXISTS WEAVER_LOG_ERROR << "[ALREADY_EXISTS] "
+#define WEAVER_LOG_PERMISSION_DENIED WEAVER_LOG_ERROR << "[PERMISSION_DENIED] "
+#define WEAVER_LOG_RESOURCE_EXHAUSTED WEAVER_LOG_WARN << "[RESOURCE_EXHAUSTED] "
+#define WEAVER_LOG_FAILED_PRECONDITION WEAVER_LOG_ERROR << "[FAILED_PRECONDITION] "
+#define WEAVER_LOG_ABORTED WEAVER_LOG_ERROR << "[ABORTED] "
+#define WEAVER_LOG_OUT_OF_RANGE WEAVER_LOG_ERROR << "[OUT_OF_RANGE] "
+#define WEAVER_LOG_UNIMPLEMENTED WEAVER_LOG_ERROR << "[UNIMPLEMENTED] "
+#define WEAVER_LOG_INTERNAL WEAVER_LOG_ERROR << "[INTERNAL] "
+#define WEAVER_LOG_UNAVAILABLE WEAVER_LOG_WARN << "[UNAVAILABLE] "
+#define WEAVER_LOG_DATA_LOSS WEAVER_LOG_ERROR << "[DATA_LOSS] "
+#define WEAVER_LOG_UNAUTHENTICATED WEAVER_LOG_ERROR << "[UNAUTHENTICATED] "
