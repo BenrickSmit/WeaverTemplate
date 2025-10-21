@@ -12,7 +12,7 @@ if /I "%PRESET_NAME%"=="--help" goto show_help
 if /I "%PRESET_NAME%"=="-h" goto show_help
 if "%PRESET_NAME%"=="/?" goto show_help
 
-set "VALID_PRESETS=default-debug default-release default-profile ninja-debug ninja-release ninja-profile"
+set "VALID_PRESETS=default-debug default-release default-profile clang-cl-debug clang-cl-release clang-cl-profile ninja-debug ninja-release ninja-profile mingw-debug mingw-release mingw-profile mingw-ninja-debug mingw-ninja-release mingw-ninja-profile"
 (echo %VALID_PRESETS% | findstr /I /C:"%PRESET_NAME%") > nul
 if errorlevel 1 (
     echo Invalid preset: "%PRESET_NAME%"
@@ -49,8 +49,17 @@ echo Available presets:
 echo   default-debug
 echo   default-release
 echo   default-profile
+echo   clang-cl-debug
+echo   clang-cl-release
+echo   clang-cl-profile
 echo   ninja-debug
 echo   ninja-release
 echo   ninja-profile
+echo   mingw-debug
+echo   mingw-release
+echo   mingw-profile
+echo   mingw-ninja-debug
+echo   mingw-ninja-release
+echo   mingw-ninja-profile
 echo.
 exit /b 1

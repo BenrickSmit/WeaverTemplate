@@ -11,16 +11,18 @@
 file(GLOB TEST_SOURCES "*.cpp")
 
 add_executable(
-    WeaverTests
+    ${PROJECT_NAME}Tests
     ${TEST_SOURCES}
 )
 
-target_include_directories(WeaverTests PUBLIC ${CMAKE_SOURCE_DIR}/src)
+set_property(TARGET ${PROJECT_NAME}Tests PROPERTY CTEST_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests)
+
+target_include_directories(${PROJECT_NAME}Tests PUBLIC ${CMAKE_SOURCE_DIR}/src)
 
 target_link_libraries(
-    WeaverTests
+    ${PROJECT_NAME}Tests
     GTest::gtest_main
-    Core
+    ${PROJECT_NAME}Core
 )
 
 # --------------------------------------------------------------------------
@@ -29,4 +31,4 @@ target_link_libraries(
 # This section automatically discovers and adds tests to the test suite.
 
 include(GoogleTest)
-gtest_discover_tests(WeaverTests)
+gtest_discover_tests(${PROJECT_NAME}Tests)

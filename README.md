@@ -16,6 +16,8 @@ This project is a starter template for creating GUI applications with C++. It is
 
 The project follows a clean, engine-inspired architecture that separates the core framework from the final application. For a detailed breakdown of the architecture, directories, and build system, please see the [Project Structure Documentation](docs/PROJECT_STRUCTURE.md).
 
+For a detailed breakdown of the Core library, please see the [Core Library Documentation](docs/CORE_DOCUMENTATION.md).
+
 ## Getting Started
 
 ### Prerequisites
@@ -105,6 +107,10 @@ To add a new test, simply create a new `.cpp` file in the `tests` directory and 
 ## License
 
 This project is licensed under the Apache 2.0 License. See the [LICENSE](LICENSE) file for details.
+
+## Changelog
+
+For a list of recent changes, peruse the (changelog)[CHANGELOG.txt].
 
 ---
 

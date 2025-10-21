@@ -20,7 +20,7 @@
       "name": "default-release",
       "displayName": "Default Release",
       "description": "Default Release build",
-      "binaryDir": "${sourceDir}/build_Release",
+      "binaryDir": "${sourceDir}/build_release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
@@ -29,7 +29,7 @@
       "name": "default-debug",
       "displayName": "Default Debug",
       "description": "Default Debug build",
-      "binaryDir": "${sourceDir}/build_Debug",
+      "binaryDir": "${sourceDir}/build_debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       }
@@ -38,7 +38,7 @@
       "name": "default-profile",
       "displayName": "Default Profile",
       "description": "Default Profile build",
-      "binaryDir": "${sourceDir}/build_Profile",
+      "binaryDir": "${sourceDir}/build_profile",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Profile"
       }
@@ -48,7 +48,7 @@
       "displayName": "Clang-cl Release",
       "description": "Release build using Clang-cl on Windows",
       "inherits": "msvc-base",
-      "binaryDir": "${sourceDir}/build_ClangCL_Release",
+      "binaryDir": "${sourceDir}/build_clangcl_release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "clang-cl",
@@ -60,7 +60,7 @@
       "displayName": "Clang-cl Debug",
       "description": "Debug build using Clang-cl on Windows",
       "inherits": "msvc-base",
-      "binaryDir": "${sourceDir}/build_ClangCL_Debug",
+      "binaryDir": "${sourceDir}/build_clangcl_debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "clang-cl",
@@ -72,7 +72,7 @@
       "displayName": "Clang-cl Profile",
       "description": "Profile build using Clang-cl on Windows",
       "inherits": "msvc-base",
-      "binaryDir": "${sourceDir}/build_ClangCL_Profile",
+      "binaryDir": "${sourceDir}/build_clangcl_profile",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Profile",
         "CMAKE_C_COMPILER": "clang-cl",
@@ -84,7 +84,7 @@
       "displayName": "Ninja Release",
       "description": "Release build using Ninja",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build_Ninja_Release",
+      "binaryDir": "${sourceDir}/build_ninja_release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
@@ -94,7 +94,7 @@
       "displayName": "Ninja Debug",
       "description": "Debug build using Ninja",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build_Ninja_Debug",
+      "binaryDir": "${sourceDir}/build_ninja_debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       }
@@ -104,7 +104,7 @@
       "displayName": "Ninja Profile",
       "description": "Profile build using Ninja",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build_Ninja_Profile",
+      "binaryDir": "${sourceDir}/build_ninja_profile",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Profile"
       }
@@ -114,7 +114,7 @@
       "displayName": "Unix Release",
       "description": "Release build using Unix Makefiles",
       "generator": "Unix Makefiles",
-      "binaryDir": "${sourceDir}/build_Unix_Release",
+      "binaryDir": "${sourceDir}/build_unix_release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
@@ -124,7 +124,7 @@
       "displayName": "Unix Debug",
       "description": "Debug build using Unix Makefiles",
       "generator": "Unix Makefiles",
-      "binaryDir": "${sourceDir}/build_Unix_Debug",
+      "binaryDir": "${sourceDir}/build_unix_debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       }
@@ -134,7 +134,7 @@
       "displayName": "Unix Profile",
       "description": "Profile build using Unix Makefiles",
       "generator": "Unix Makefiles",
-      "binaryDir": "${sourceDir}/build_Unix_Profile",
+      "binaryDir": "${sourceDir}/build_unix_profile",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Profile"
       }
@@ -144,7 +144,7 @@
       "displayName": "MinGW Release",
       "description": "Release build using MinGW Makefiles",
       "generator": "MinGW Makefiles",
-      "binaryDir": "${sourceDir}/build_MinGW_Release",
+      "binaryDir": "${sourceDir}/build_mingw_release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "gcc",
@@ -156,7 +156,7 @@
       "displayName": "MinGW Debug",
       "description": "Debug build using MinGW Makefiles",
       "generator": "MinGW Makefiles",
-      "binaryDir": "${sourceDir}/build_MinGW_Debug",
+      "binaryDir": "${sourceDir}/build_mingw_debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "gcc",
@@ -168,7 +168,7 @@
       "displayName": "MinGW Profile",
       "description": "Profile build using MinGW Makefiles",
       "generator": "MinGW Makefiles",
-      "binaryDir": "${sourceDir}/build_MinGW_Profile",
+      "binaryDir": "${sourceDir}/build_mingw_profile",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Profile",
         "CMAKE_C_COMPILER": "gcc",
@@ -180,7 +180,7 @@
       "displayName": "MinGW Ninja Release",
       "description": "Release build using Ninja with MinGW",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build_MinGW_Ninja_Release",
+      "binaryDir": "${sourceDir}/build_mingw_ninja_release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "gcc",
@@ -192,7 +192,7 @@
       "displayName": "MinGW Ninja Debug",
       "description": "Debug build using Ninja with MinGW",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build_MinGW_Ninja_Debug",
+      "binaryDir": "${sourceDir}/build_mingw_ninja_debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "gcc",
@@ -204,7 +204,7 @@
       "displayName": "MinGW Ninja Profile",
       "description": "Profile build using Ninja with MinGW",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build_MinGW_Ninja_Profile",
+      "binaryDir": "${sourceDir}/build_mingw_ninja_profile",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Profile",
         "CMAKE_C_COMPILER": "gcc",
@@ -216,7 +216,7 @@
       "displayName": "Clang Unix Release",
       "description": "Release build using Clang on Unix-like systems with Ninja",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build_Clang_Unix_Release",
+      "binaryDir": "${sourceDir}/build_clang_unix_release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "clang",
@@ -228,7 +228,7 @@
       "displayName": "Clang Unix Debug",
       "description": "Debug build using Clang on Unix-like systems with Ninja",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build_Clang_Unix_Debug",
+      "binaryDir": "${sourceDir}/build_clang_unix_debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "clang",
@@ -240,7 +240,7 @@
       "displayName": "Clang Unix Profile",
       "description": "Profile build using Clang on Unix-like systems with Ninja",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build_Clang_Unix_Profile",
+      "binaryDir": "${sourceDir}/build_clang_unix_profile",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Profile",
         "CMAKE_C_COMPILER": "clang",
@@ -252,7 +252,7 @@
       "displayName": "GCC Unix Release",
       "description": "Release build using GCC on Unix-like systems with Ninja",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build_GCC_Unix_Release",
+      "binaryDir": "${sourceDir}/build_gcc_unix_release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "gcc",
@@ -264,7 +264,7 @@
       "displayName": "GCC Unix Debug",
       "description": "Debug build using GCC on Unix-like systems with Ninja",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build_GCC_Unix_Debug",
+      "binaryDir": "${sourceDir}/build_gcc_unix_debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_C_COMPILER": "gcc",
@@ -276,7 +276,7 @@
       "displayName": "GCC Unix Profile",
       "description": "Profile build using GCC on Unix-like systems with Ninja",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build_GCC_Unix_Profile",
+      "binaryDir": "${sourceDir}/build_gcc_unix_profile",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Profile",
         "CMAKE_C_COMPILER": "gcc",
@@ -480,6 +480,14 @@
       "name": "default-test",
       "displayName": "Default Test Run",
       "configurePreset": "default-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "default-debug-test",
+      "displayName": "Default Debug Test Run",
+      "configurePreset": "default-debug",
       "output": {
         "outputOnFailure": true
       }

@@ -1,0 +1,11 @@
+2025-10-21
+Author: B.G. Smit
+
+- Updated the Weaver Logic to create more defined App and Library files. 
+    It is no longer App and Core, but can be user defined. See the project setting cmake.
+- Added Changelog to the Root and Readme.
+- Updated Directory Creation Names
+- Standardised the CMake Presets
+- Updated Button Size to something better looking with the current theme.
+
+---

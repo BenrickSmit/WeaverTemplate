@@ -42,21 +42,10 @@ endif()
 
 # Set the output directory for the final executable based on the build type.
 # This places the executable in a top-level 'deliverables' directory.
-if(CMAKE_BUILD_TYPE)
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/deliverables")
-else()
-    # Default for multi-configuration generators (like Visual Studio) if no type is specified.
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/deliverables")
-endif()
 
-# Set the output directory for the final executable based on the build type.
-# This places the executable in a top-level 'deliverables' directory.
-if(CMAKE_BUILD_TYPE)
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/deliverables")
-else()
-    # Default for multi-configuration generators (like Visual Studio) if no type is specified.
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/deliverables")
-endif()
+# For multi-configuration generators, the configuration name is appended automatically.
+# We want to ensure this is lowercase.
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/deliverables/$<LOWER_CASE:$<CONFIG>>")
 
 # --------------------------------------------------------------------------
 # SECTION: File Target Setup

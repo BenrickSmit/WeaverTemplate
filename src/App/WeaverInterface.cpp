@@ -24,7 +24,7 @@
 #include "../Core/IconsMaterialDesign.h"
 #include "../Core/Image.h"
 #include "../Core/Log.h"
-#include "Timer.h"
+#include "../Core/Timer.h"
 #include "glm/gtc/type_ptr.hpp"
 
 // Temporary, for demo purposes
@@ -304,18 +304,22 @@ Weaver::Canvas* Weaver::CreateCanvas(int argc, char** argv) {
 
     // Spacing to push buttons to the right
     ImGui::SetCursorPosX(width - 136);
+    short command_button_width = 33;
+    short command_button_height = 28;
+    ImVec2 button_size = ImVec2(command_button_width, command_button_height);
 
-    if (ImGui::Button(ICON_MD_MINIMIZE "##Minimize")) {
+    if (ImGui::Button(ICON_MD_MINIMIZE "##Minimize", button_size)) {
       app->Minimize();
     }
     ImGui::SameLine();
-    if (ImGui::Button(ICON_MD_FULLSCREEN "##Maximize")) {
+    if (ImGui::Button(ICON_MD_FULLSCREEN "##Maximize", button_size)) {
       app->ToggleMaximize();
     }
     ImGui::SameLine();
-    if (ImGui::Button(ICON_MD_CLOSE "##Close")) {
+    if (ImGui::Button(ICON_MD_CLOSE "##Close", button_size)) {
       app->Close();
     }
+    
   });
   return app;
 }
