@@ -6,6 +6,7 @@
 
 set(NAME "${PROJECT_NAME}Core")
 
+# Add the Core library with all its source and header files.
 add_library(${PROJECT_NAME}Core STATIC
   "Canvas.cpp"
   "Canvas.h"
@@ -36,6 +37,7 @@ add_library(${PROJECT_NAME}Core STATIC
 # --------------------------------------------------------------------------
 # Find and link required dependencies for the Core library.
 
+# Find the Vulkan package, which is required for rendering.
 find_package(Vulkan REQUIRED)
 
 # --------------------------------------------------------------------------
@@ -43,8 +45,10 @@ find_package(Vulkan REQUIRED)
 # --------------------------------------------------------------------------
 # Configure include directories and link libraries for the Core library.
 
+# Set include directories for the Core library.
 target_include_directories(${PROJECT_NAME}Core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
+# Link necessary libraries to the Core library.
 target_link_libraries(${PROJECT_NAME}Core
   PUBLIC 
 glm::glm

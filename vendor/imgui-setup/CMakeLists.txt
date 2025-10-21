@@ -6,6 +6,7 @@
 # architecture. This ensures it is available as needed in the /Core anad /App
 FetchContent_MakeAvailable(imgui)
 
+# Define the imgui library with all its source files and backend implementations.
 add_library(imgui
   ${imgui_SOURCE_DIR}/imgui.cpp ${imgui_SOURCE_DIR}/imgui.h
   ${imgui_SOURCE_DIR}/imconfig.h ${imgui_SOURCE_DIR}/imgui_demo.cpp
@@ -23,9 +24,14 @@ add_library(imgui
 # SECTION: Build Configuration Setup
 # --------------------------------------------------------------------------
 
-
+# Find the Vulkan package, which is required for the Dear ImGui Vulkan backend.
 find_package(Vulkan REQUIRED)
 
+# Set include directories for the imgui library.
 target_include_directories(imgui PUBLIC ${imgui_SOURCE_DIR})
+
+# Set the C++ standard for the imgui library.
 target_compile_features(imgui PRIVATE cxx_std_${PROJECT_CPP_VERSION})
+
+# Link necessary libraries to imgui.
 target_link_libraries(imgui PUBLIC SDL2::SDL2 Vulkan::Vulkan)
