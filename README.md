@@ -52,9 +52,8 @@ This project includes several scripts in the root directory to automate common t
     # Build a specific configuration (Debug, Release, RelWithDebInfo)
     ./build.sh Debug
     ```
-*   **To run the application (after building):**
+*   **To run the full CMake workflow (configure, build, test, package):**
     ```sh
-    # Run the default Debug configuration
     ./run.sh # or run.bat on Windows
 
     # Run a specific configuration
@@ -77,7 +76,7 @@ This project includes several scripts in the root directory to automate common t
     ./run_workflow.sh # or run_workflow.bat on Windows
     ```
 
-The final executables will be placed in the `deliverables` directory, organized by build type.
+The final executables will be placed in the `deliverables` directory, organized by build type. Installers will be located in the root directory under a `deliverables/<build_environment>/installer` subdirectory (e.g., `deliverables/release/installer`).
 
 ## How to Extend the Project
 
@@ -88,8 +87,16 @@ This project is designed to be a starter template. Here are some ways you can ex
 *   **Create New Layers:** You can create new application layers by subclassing the `Layer` class and adding them to the `Canvas`.
 *   **Add New Tests:** Add new `.cpp` files to the `tests` directory to create new test suites. CMake will automatically discover and add them to the test runner.
 *   **Use the Logger:** Include `src/Core/Log.h` and use the logging macros, for example: `WEAVER_LOG_INFO << "Hello from the logger!";`. It outputs to a local file from where the application is run.
+*   **Customizing Application Icons and Installer Details:**
+    *   **Application Icon (Windows):** The application icon for Windows executables is set via `src/App/icon.rc`. This file references `assets/icons/icon.ico`. To change the application icon, replace `assets/icons/icon.ico` with your desired `.ico` file.
+    *   **Application Icon (Linux):** For Linux, the application icon is `assets/icons/BaseAppIcon.png`. This is installed and referenced by the generated `.desktop` file. To change the icon, replace `assets/icons/BaseAppIcon.png`.
+    *   **Installer Welcome/Description Messages:** The welcome and description messages for the installer can be customized by editing the `INSTALLER_WELCOME_MESSAGE` and `INSTALLER_DESCRIPTION_MESSAGE` variables in `project_settings.cmake`.
+    *   **Code Signing (Windows Installers):** To prevent antivirus warnings and establish trust, you can digitally sign your Windows installers. After obtaining a code signing certificate from a Certificate Authority, uncomment and configure the `CPACK_NSIS_SIGN_COMMAND` variable in the main `CMakeLists.txt` file within the `if(WIN32)` block. You will need `signtool.exe` (part of the Windows SDK) in your PATH.
+    *   **CPack Generators:** The CPack generators are configured in `packaging/CMakeLists.txt`. On Windows, it generates `ZIP` and `NSIS` installers. On Linux, it generates `TGZ`, `DEB`, and `RPM` packages.
 
 ## Contributing
+
+Please review our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
 
 ### Adding to Core and App
 

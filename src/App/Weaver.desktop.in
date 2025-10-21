@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=@PROJECT_VERSION@
+Type=Application
+Name=@PROJECT_NAME@
+Comment=@CPACK_PACKAGE_DESCRIPTION_SUMMARY@
+Exec=@CMAKE_INSTALL_PREFIX@/bin/@PROJECT_NAME@
+Icon=@PROJECT_NAME@
+Terminal=false
+Categories=Utility;

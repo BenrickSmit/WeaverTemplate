@@ -54,7 +54,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/deliverables/$<LOWER_CAS
 # Enable Vulkan - Required for Dear ImGUI
 find_package(Vulkan REQUIRED)
 
-# add_subdirectory(packaging)
+add_subdirectory(packaging)
 set(ABSL_PROPAGATE_CXX_STD ON)
 
 # Populate
@@ -89,6 +89,10 @@ set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 # Contact email for the package maintainer.
 set(CPACK_PACKAGE_CONTACT "support@weaver.com")
 
+# Set the output directory for the generated installer.
+set(INSTALLER_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/deliverables/${CMAKE_BUILD_TYPE}/installer")
+set(CPACK_PACKAGE_DIRECTORY "${INSTALLER_OUTPUT_PATH}")
+
 # Optional: Path to a license file to include in the installer.
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
 
@@ -113,6 +117,11 @@ if(WIN32)
 
     # Optional: Icon for the uninstaller.
     # set(CPACK_NSIS_MUI_UNIICON "${CMAKE_CURRENT_SOURCE_DIR}/assets/icon.ico")
+
+    # Optional: Command to sign the installer. Uncomment and configure after obtaining a code signing certificate.
+    # Replace "Your Certificate Name" with the subject name of your code signing certificate.
+    # Ensure signtool.exe (from Windows SDK) is in your PATH or provide its full path.
+    # set(CPACK_NSIS_SIGN_COMMAND "signtool.exe sign /a /t http://timestamp.digicert.com /d "Weaver GUI Project" "<FILE>"")
 
 else()
     # On Linux, generate both DEB (for Debian/Ubuntu) and RPM (for Fedora/CentOS) packages.

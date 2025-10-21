@@ -1,7 +1,7 @@
 set(NAME "${PROJECT_NAME}")
 
 if (WIN32)
-    add_executable(${PROJECT_NAME} WIN32 WeaverInterface.cpp)
+    add_executable(${PROJECT_NAME} WIN32 WeaverInterface.cpp icon.rc)
 else()
     add_executable(${PROJECT_NAME} WeaverInterface.cpp)
 endif()
@@ -43,3 +43,17 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 install(TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION bin
 )
+
+if (UNIX)
+    install(FILES "${CMAKE_SOURCE_DIR}/assets/icons/BaseAppIcon.png"
+            DESTINATION "share/icons/hicolor/scalable/apps"
+            RENAME "${PROJECT_NAME}.png")
+
+    configure_file(
+        "${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.desktop.in"
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.desktop"
+        @ONLY
+    )
+    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.desktop"
+            DESTINATION "share/applications")
+endif()

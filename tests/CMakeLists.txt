@@ -15,7 +15,7 @@ add_executable(
     ${TEST_SOURCES}
 )
 
-set_property(TARGET ${PROJECT_NAME}Tests PROPERTY CTEST_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests)
+
 
 target_include_directories(${PROJECT_NAME}Tests PUBLIC ${CMAKE_SOURCE_DIR}/src)
 
@@ -24,6 +24,8 @@ target_link_libraries(
     GTest::gtest_main
     ${PROJECT_NAME}Core
 )
+
+set_target_properties(${PROJECT_NAME}Tests PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/deliverables/$<LOWER_CASE:$<CONFIG>>")
 
 # --------------------------------------------------------------------------
 # SECTION: Test Discovery

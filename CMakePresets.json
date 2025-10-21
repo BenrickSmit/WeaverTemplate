@@ -555,7 +555,9 @@
       "displayName": "Unix Package",
       "configurePreset": "unix-release",
       "generators": [
-        "NSIS"
+        "TGZ",
+        "DEB",
+        "RPM"
       ]
     },
     {
@@ -612,10 +614,6 @@
         {
           "type": "build",
           "name": "default-release"
-        },
-        {
-          "type": "test",
-          "name": "default-test"
         },
         {
           "type": "package",
