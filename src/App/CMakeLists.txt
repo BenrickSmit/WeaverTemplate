@@ -60,6 +60,10 @@ install(TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION bin
 )
 
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/assets
+    DESTINATION bin
+)
+
 # Install Linux-specific resources (icon and .desktop file).
 if (UNIX)
     install(FILES "${CMAKE_SOURCE_DIR}/assets/icons/BaseAppIcon.png"

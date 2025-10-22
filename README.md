@@ -92,7 +92,31 @@ This project is designed to be a starter template. Here are some ways you can ex
     *   **Application Icon (Linux):** For Linux, the application icon is `assets/icons/BaseAppIcon.png`. This is installed and referenced by the generated `.desktop` file. To change the icon, replace `assets/icons/BaseAppIcon.png`.
     *   **Installer Welcome/Description Messages:** The welcome and description messages for the installer can be customized by editing the `INSTALLER_WELCOME_MESSAGE` and `INSTALLER_DESCRIPTION_MESSAGE` variables in `project_settings.cmake`.
     *   **Code Signing (Windows Installers):** To prevent antivirus warnings and establish trust, you can digitally sign your Windows installers. After obtaining a code signing certificate from a Certificate Authority, uncomment and configure the `CPACK_NSIS_SIGN_COMMAND` variable in the main `CMakeLists.txt` file within the `if(WIN32)` block. You will need `signtool.exe` (part of the Windows SDK) in your PATH.
-    *   **CPack Generators:** The CPack generators are configured in `packaging/CMakeLists.txt`. On Windows, it generates `ZIP` and `NSIS` installers. On Linux, it generates `TGZ`, `DEB`, and `RPM` packages.
+    *   **CPack Generators:** The CPack generators are configured in `packaging/CMakeLists.txt`. On Windows, it generates `ZIP` and `NSIS` installers.
+
+*   **Including Additional Files/Directories in the Installer:**
+    When adding new files or directories that your application needs at runtime (e.g., configuration files, data assets, plugins), you must explicitly instruct CMake to include them in the CPack installer. Simply copying them during the build process (e.g., with `add_custom_command(TARGET ... POST_BUILD ... copy_directory)`) is not sufficient for the installer.
+
+    To include a directory, use the `install(DIRECTORY ...)` command in the relevant `CMakeLists.txt` file (e.g., `src/App/CMakeLists.txt`). For example, if you have a directory named `my_data` in your project's root that needs to be installed into the `bin` directory alongside your executable:
+
+    ```cmake
+    install(DIRECTORY ${CMAKE_SOURCE_DIR}/my_data
+        DESTINATION bin
+    )
+    ```
+
+    -   `${CMAKE_SOURCE_DIR}/my_data`: Specifies the source directory to be installed.
+    -   `DESTINATION bin`: Specifies the target directory *relative to the installation prefix*. If your executable is installed to `bin`, this will place `my_data` directly inside the `bin` folder. Be mindful of nested directories; if you specify `DESTINATION bin/my_data`, it will create `bin/my_data/my_data` in the installation.
+
+    For individual files, use `install(FILES ...)`:
+
+    ```cmake
+    install(FILES ${CMAKE_SOURCE_DIR}/config.json
+        DESTINATION bin
+    )
+    ```
+
+    After modifying `CMakeLists.txt`, remember to rebuild your project and re-create the installer to apply the changes.
 
 ## Contributing
 

@@ -573,12 +573,16 @@ void Canvas::SetWindowShape() {
 
 void Canvas::Init() {
   // Setup SDL
+  WEAVER_LOG_INFO("Initializing SDL...");
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) != 0) {
     printf("Error: %s\n", SDL_GetError());
+    WEAVER_LOG_FATAL("Failed to initialize SDL: %s", SDL_GetError());
     return;
   }
+  WEAVER_LOG_INFO("SDL initialized successfully.");
 
   // From 2.0.18: Enable native IME.
+  WEAVER_LOG_INFO("Creating SDL shaped window...");
 #ifdef SDL_HINT_IME_SHOW_UI
   SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
 #endif
@@ -607,43 +611,52 @@ void Canvas::Init() {
       m_Specification.Width,
       m_Specification.Height,
       window_flags);
-  // Removing Borders
-  // SDL_SetWindowBordered(m_WindowHandle, SDL_FALSE);
-  // SDL_SetWindowOpacity(m_WindowHandle, 0.8f);
   if (m_WindowHandle == nullptr) {
     printf("Error: SDL_CreateWindow(): %s\n", SDL_GetError());
+    WEAVER_LOG_FATAL("Failed to create SDL shaped window: %s", SDL_GetError());
     return;
   }
+  WEAVER_LOG_INFO("SDL shaped window created successfully.");
 
   SetWindowShape();
 
+  WEAVER_LOG_INFO("Retrieving Vulkan instance extensions...");
   ImVector<const char*> extensions;
   uint32_t extensions_count = 0;
   SDL_Vulkan_GetInstanceExtensions(m_WindowHandle, &extensions_count, nullptr);
   extensions.resize(extensions_count);
   SDL_Vulkan_GetInstanceExtensions(m_WindowHandle, &extensions_count, extensions.Data);
+  WEAVER_LOG_INFO("Vulkan instance extensions retrieved. Calling SetupVulkan...");
   SetupVulkan(extensions);
+  WEAVER_LOG_INFO("SetupVulkan completed.");
 
   // Create Window Surface
+  WEAVER_LOG_INFO("Creating Vulkan surface...");
   VkSurfaceKHR surface;
   VkResult err;
   if (SDL_Vulkan_CreateSurface(m_WindowHandle, g_Instance, &surface) == 0) {
     printf("Failed to create Vulkan surface.\n");
+    WEAVER_LOG_FATAL("Failed to create Vulkan surface.");
     return;
   }
+  WEAVER_LOG_INFO("Vulkan surface created successfully.");
 
+  WEAVER_LOG_INFO("Setting up Vulkan window...");
   // Create Framebuffers
   int w, h;
   SDL_GetWindowSize(m_WindowHandle, &w, &h);
   ImGui_ImplVulkanH_Window* wd = &g_MainWindowData;
   SetupVulkanWindow(wd, surface, w, h);
+  WEAVER_LOG_INFO("Vulkan window setup completed.");
 
   s_AllocatedCommandBuffers.resize(wd->ImageCount);
   s_ResourceFreeQueue.resize(wd->ImageCount);
 
   // Setup Dear ImGui context
+  WEAVER_LOG_INFO("Creating ImGui context...");
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();
+  WEAVER_LOG_INFO("ImGui context created.");
   ImGuiIO& io = ImGui::GetIO();
   (void)io;
   (void)io;
@@ -660,7 +673,9 @@ void Canvas::Init() {
   // ImGui::StyleColorsLight();
 
   // Setup Platform/Renderer backends
+  WEAVER_LOG_INFO("Initializing ImGui SDL2 for Vulkan...");
   ImGui_ImplSDL2_InitForVulkan(m_WindowHandle);
+  WEAVER_LOG_INFO("ImGui SDL2 for Vulkan initialized.");
   ImGui_ImplVulkan_InitInfo init_info = {};
   init_info.Instance = g_Instance;
   init_info.PhysicalDevice = g_PhysicalDevice;
@@ -676,18 +691,23 @@ void Canvas::Init() {
   init_info.MSAASamples = VK_SAMPLE_COUNT_1_BIT;
   init_info.Allocator = g_Allocator;
   init_info.CheckVkResultFn = check_vk_result;
+  WEAVER_LOG_INFO("Initializing ImGui Vulkan backend...");
   ImGui_ImplVulkan_Init(&init_info);
+  WEAVER_LOG_INFO("ImGui Vulkan backend initialized.");
 
   // Load Fonts
   // The font files are loaded from the "assets" directory. This path is relative to the
   // executable. The `assets` directory is copied into the same directory as the executable by a
   // post-build command in the `src/App/CMakeLists.txt` file.
+  WEAVER_LOG_INFO(
+      "Loading Roboto Mono font from: assets/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf");
   ImFont* robotoFont = io.Fonts->AddFontFromFileTTF(
       "assets/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf", 16.0f);
   if (robotoFont == nullptr) {
     WEAVER_LOG_FATAL("Failed to load Roboto Mono font!");
     abort();
   }
+  WEAVER_LOG_INFO("Roboto Mono font loaded successfully.");
 
   ImFontConfig config;
   config.MergeMode = true;
@@ -696,6 +716,10 @@ void Canvas::Init() {
 #include "IconsMaterialDesign.h"
   static const ImWchar icon_ranges[] = {ICON_MIN_MD, ICON_MAX_MD, 0};
 
+  WEAVER_LOG_INFO(
+      "Loading Material Symbols font from: "
+      "assets/fonts/Material_Symbols/Material_Symbols_Rounded/"
+      "MaterialSymbolsRounded-VariableFont_FILL,GRAD,opsz,wght.ttf");
   ImFont* materialSymbolsFont = io.Fonts->AddFontFromFileTTF(
       "assets/fonts/Material_Symbols/Material_Symbols_Rounded/"
       "MaterialSymbolsRounded-VariableFont_FILL,GRAD,opsz,wght.ttf",
@@ -706,6 +730,7 @@ void Canvas::Init() {
     WEAVER_LOG_FATAL("Failed to load Material Symbols font!");
     abort();
   }
+  WEAVER_LOG_INFO("Material Symbols font loaded successfully.");
   // io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
   // ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, nullptr,
   // io.Fonts->GetGlyphRangesJapanese()); IM_ASSERT(font != nullptr); Load default font ImFontConfig
@@ -793,7 +818,9 @@ void Canvas::Run() {
       if (width > 0 && height > 0) {
         m_Specification.Width = width;
         m_Specification.Height = height;
+        WEAVER_LOG_INFO("Setting window shape...");
         SetWindowShape();
+        WEAVER_LOG_INFO("Window shape set successfully.");
 
         ImGui_ImplVulkan_SetMinImageCount(g_MinImageCount);
         ImGui_ImplVulkanH_CreateOrResizeWindow(g_Instance,
