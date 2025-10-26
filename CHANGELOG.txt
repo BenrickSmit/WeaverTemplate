@@ -8,4 +8,14 @@ Author: B.G. Smit
 - Standardised the CMake Presets
 - Updated Button Size to something better looking with the current theme.
 
+
+2025-10-26
+Author: B.G. Smit
+
+- Refactored the application's settings to be a centralized 'Settings.h' file. Can now be used to change Vulkan Rendering pipelines too.
+- Replaced hardcoded values in 'WeaverInterface.cpp' and 'Canvas.cpp' with configurable constants from 'Settings.h'.
+- Introduced new UI, Window, Font, and Rendering namespaces within 'Settings.h' to organize application-wide constants.
+- Added customizable colors for minimize, maximize, and close buttons in the UI.
+- Update previous minimize, maximize, and close buttons from regular buttons to Menu buttons. This now mimics Visual Studio on Windows.
+
 ---

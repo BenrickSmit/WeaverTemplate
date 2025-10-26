@@ -2,6 +2,15 @@
 
 This project is a starter template for creating GUI applications with C++. It is built using C++, Vulkan, SDL2, and Dear ImGui.
 
+
+---
+
+## Screenshots
+
+![Template GUI Screenshot](assets/example/template_window.png)
+
+---
+
 ## Features
 
 *   **Customizable Theming:** The Dear ImGui theme can be easily customized.

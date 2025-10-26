@@ -2,6 +2,7 @@
 
 #include "Log.h"
 #include "Themes.h"
+#include "Common/Settings.h"
 
 //
 // Adapted from Dear ImGui Vulkan example
@@ -84,7 +85,7 @@ static VkDebugReportCallbackEXT g_DebugReport = VK_NULL_HANDLE;
 static VkPipelineCache g_PipelineCache = VK_NULL_HANDLE;
 static VkDescriptorPool g_DescriptorPool = VK_NULL_HANDLE;
 
-uint32_t g_CommandBufferSize = 1000;
+uint32_t g_CommandBufferSize = Weaver::Settings::Rendering::COMMAND_BUFFER_SIZE;
 
 static ImGui_ImplVulkanH_Window g_MainWindowData;
 static uint32_t g_MinImageCount = 2;
@@ -544,7 +545,7 @@ Canvas& Canvas ::Get() {
 void Canvas::SetWindowShape() {
   SDL_Surface* shape = SDL_CreateRGBSurfaceWithFormat(
 
-      0, m_Specification.Width, m_Specification.Height, 32, SDL_PIXELFORMAT_RGBA32);
+      0, m_Specification.Width, m_Specification.Height, Weaver::Settings::Rendering::SHAPE_SURFACE_BPP, SDL_PIXELFORMAT_RGBA32);
 
   if (shape) {
     SDL_SetSurfaceBlendMode(shape, SDL_BLENDMODE_BLEND);
@@ -559,11 +560,11 @@ void Canvas::SetWindowShape() {
     SDL_Rect rect = {
         0, 0, static_cast<int>(m_Specification.Width), static_cast<int>(m_Specification.Height)};
     FillRoundedRect(
-        shape, &rect, m_Specification.CornerRadius, SDL_MapRGBA(shape->format, 255, 255, 255, 255));
+        shape, &rect, Weaver::Settings::Window::CORNER_RADIUS, SDL_MapRGBA(shape->format, 255, 255, 255, 255));
 
     SDL_WindowShapeMode mode;
     mode.mode = ShapeModeBinarizeAlpha;
-    mode.parameters.binarizationCutoff = 255;
+    mode.parameters.binarizationCutoff = Weaver::Settings::Rendering::SHAPE_BINARIZATION_CUTOFF;
 
     SDL_SetWindowShape(m_WindowHandle, shape, &mode);
 
@@ -702,7 +703,7 @@ void Canvas::Init() {
   WEAVER_LOG_INFO(
       "Loading Roboto Mono font from: assets/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf");
   ImFont* robotoFont = io.Fonts->AddFontFromFileTTF(
-      "assets/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf", 16.0f);
+      "assets/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf", Weaver::Settings::Font::ROBOTO_MONO_FONT_SIZE);
   if (robotoFont == nullptr) {
     WEAVER_LOG_FATAL("Failed to load Roboto Mono font!");
     abort();
@@ -723,7 +724,7 @@ void Canvas::Init() {
   ImFont* materialSymbolsFont = io.Fonts->AddFontFromFileTTF(
       "assets/fonts/Material_Symbols/Material_Symbols_Rounded/"
       "MaterialSymbolsRounded-VariableFont_FILL,GRAD,opsz,wght.ttf",
-      17.0f,
+      Weaver::Settings::Font::MATERIAL_SYMBOLS_FONT_SIZE,
       &config,
       icon_ranges);
   if (materialSymbolsFont == nullptr) {

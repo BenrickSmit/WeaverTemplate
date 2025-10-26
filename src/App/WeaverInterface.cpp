@@ -25,6 +25,7 @@
 #include "../Core/Image.h"
 #include "../Core/Log.h"
 #include "../Core/Timer.h"
+#include "../Core/Common/Settings.h"
 #include "glm/gtc/type_ptr.hpp"
 
 // Temporary, for demo purposes
@@ -88,7 +89,7 @@ class ExampleLayer : public Weaver::Layer {
   bool m_continuous_rendering = false;
   bool m_continuous_rendering_before_state_change = false;
 
-  uint32_t m_viewport_width = 1600, m_viewport_height = 900;
+  uint32_t m_viewport_width = Weaver::Settings::Window::DEFAULT_WIDTH, m_viewport_height = Weaver::Settings::Window::DEFAULT_HEIGHT;
 
   float m_last_render_time = 0.0f;
 };
@@ -100,7 +101,7 @@ void ExampleLayer::OnUIRender() {
   WEAVER_LOG_INFO("Started: OnUIRender");
 
   // Main control panel for generic application settings and demonstrations.
-  ImGui::SetNextWindowSizeConstraints(ImVec2(254, 870), ImVec2(FLT_MAX, FLT_MAX));
+  ImGui::SetNextWindowSizeConstraints(ImVec2(Weaver::Settings::UI::CONTROL_PANEL_MIN_WIDTH, Weaver::Settings::UI::CONTROL_PANEL_MIN_HEIGHT), ImVec2(FLT_MAX, FLT_MAX));
   ImGui::Begin("Control Panel");
 
   ImGui::Text("Application Statistics");
@@ -133,7 +134,7 @@ void ExampleLayer::OnUIRender() {
   }
 
   // Example of a text input
-  static char s_text_input_buffer[256] = "Default Text";
+  static char s_text_input_buffer[Weaver::Settings::UI::TEXT_INPUT_BUFFER_SIZE] = "Default Text";
   if (ImGui::InputText("Text Input", s_text_input_buffer, sizeof(s_text_input_buffer))) {
     WEAVER_LOG_INFO("Text input changed: %s", s_text_input_buffer);
     // TODO: Process text input.
@@ -144,7 +145,7 @@ void ExampleLayer::OnUIRender() {
   ImGui::Separator();
 
   // Example of a simple plot (e.g., frame times, or some simulated data)
-  static float s_history[100] = {0};
+  static float s_history[Weaver::Settings::UI::FRAME_RATE_HISTORY_SIZE] = {0};
   static int s_history_idx = 0;
   s_history[s_history_idx] = ImGui::GetIO().Framerate;  // Example: plot framerate
   s_history_idx = (s_history_idx + 1) % IM_ARRAYSIZE(s_history);
@@ -155,8 +156,8 @@ void ExampleLayer::OnUIRender() {
       s_history_idx,
       "FPS",
       0.0f,
-      ImGui::GetIO().Framerate * 1.5f,
-      ImVec2(0, 80));
+      ImGui::GetIO().Framerate * Weaver::Settings::UI::FRAME_RATE_PLOT_MULTIPLIER,
+      ImVec2(0, Weaver::Settings::UI::PLOT_HEIGHT));
 
   ImGui::End();  // End Control Panel
 
@@ -215,7 +216,7 @@ void ExampleLayer::OnUIRender() {
   // Line graph: Sine wave
   ImGui::Text("Sine Wave (Line Graph)");
   ImGui::Separator();
-  static float s_sine_values[100];
+  static float s_sine_values[Weaver::Settings::UI::FRAME_RATE_HISTORY_SIZE];
   static int s_sine_offset = 0;
   static double s_time = 0.0;
   s_time += ImGui::GetIO().DeltaTime;
@@ -229,18 +230,18 @@ void ExampleLayer::OnUIRender() {
       "",
       0.0f,
       1.0f,
-      ImVec2(0, 80));
+      ImVec2(0, Weaver::Settings::UI::PLOT_HEIGHT));
 
   ImGui::Spacing();
 
   // Bar chart: Random values with fixed window
   ImGui::Text("Random Values (Bar Chart)");
   ImGui::Separator();
-  static float s_bar_values[10] = {0};  // 10 items
+  static float s_bar_values[Weaver::Settings::UI::BAR_CHART_ITEM_COUNT] = {0};  // 10 items
   static int s_bar_offset = 0;
   static float s_bar_time_accumulator = 0.0f;
   s_bar_time_accumulator += ImGui::GetIO().DeltaTime;
-  if (s_bar_time_accumulator > 0.5f) {  // Update every 0.5 seconds
+  if (s_bar_time_accumulator > Weaver::Settings::UI::BAR_CHART_UPDATE_INTERVAL) {  // Update every 0.5 seconds
     s_bar_time_accumulator = 0.0f;
     // Shift values to the left
     for (int i = 0; i < IM_ARRAYSIZE(s_bar_values) - 1; i++) {
@@ -256,7 +257,7 @@ void ExampleLayer::OnUIRender() {
       "",
       0.0f,
       1.0f,
-      ImVec2(0, 80));
+      ImVec2(0, Weaver::Settings::UI::PLOT_HEIGHT));
 
   ImGui::End();  // End Dynamic Graphs
 
@@ -296,30 +297,43 @@ Weaver::Canvas* Weaver::CreateCanvas(int argc, char** argv) {
       ImGui::EndMenu();
     }
 
-    // Add a separator
-    ImGui::Separator();
-
     // Get window width
     float width = ImGui::GetWindowWidth();
-
     // Spacing to push buttons to the right
-    ImGui::SetCursorPosX(width - 136);
-    short command_button_width = 33;
-    short command_button_height = 28;
-    ImVec2 button_size = ImVec2(command_button_width, command_button_height);
+    ImGui::SetCursorPosX(width - Weaver::Settings::UI::MENUBAR_BUTTON_OFFSET);
 
-    if (ImGui::Button(ICON_MD_MINIMIZE "##Minimize", button_size)) {
-      app->Minimize();
+    // Add a separator
+    ImGui::Separator();
+    {
+      ImGui::PushStyleColor(
+          ImGuiCol_HeaderHovered, Weaver::Settings::UI::MINIMIZE_BUTTON_HOVER_COLOR);  // Greenish on hover
+      ImGui::PushStyleColor(
+          ImGuiCol_HeaderActive, Weaver::Settings::UI::MINIMIZE_BUTTON_ACTIVE_COLOR);  // Darker greenish on click
+      if (ImGui::MenuItem(ICON_MD_MINIMIZE)) {
+        app->Minimize();
+      }
+      ImGui::PopStyleColor(2);
     }
-    ImGui::SameLine();
-    if (ImGui::Button(ICON_MD_FULLSCREEN "##Maximize", button_size)) {
-      app->ToggleMaximize();
+    {
+      ImGui::PushStyleColor(
+          ImGuiCol_HeaderHovered, Weaver::Settings::UI::MAXIMIZE_BUTTON_HOVER_COLOR);  // Blueish on hover
+      ImGui::PushStyleColor(
+          ImGuiCol_HeaderActive, Weaver::Settings::UI::MAXIMIZE_BUTTON_ACTIVE_COLOR);  // Darker blueish on click
+      if (ImGui::MenuItem(ICON_MD_FULLSCREEN)) {
+        app->ToggleMaximize();
+      }
+      ImGui::PopStyleColor(2);
     }
-    ImGui::SameLine();
-    if (ImGui::Button(ICON_MD_CLOSE "##Close", button_size)) {
-      app->Close();
+    {
+      ImGui::PushStyleColor(
+          ImGuiCol_HeaderHovered, Weaver::Settings::UI::CLOSE_BUTTON_HOVER_COLOR);  // Reddish on hover
+      ImGui::PushStyleColor(
+          ImGuiCol_HeaderActive, Weaver::Settings::UI::CLOSE_BUTTON_ACTIVE_COLOR);  // Darker reddish on click
+      if (ImGui::MenuItem(ICON_MD_CLOSE)) {
+        app->Close();
+      }
+      ImGui::PopStyleColor(2);
     }
-    
   });
   return app;
 }
